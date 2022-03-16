@@ -6,6 +6,7 @@ import { MODES, SharedState, SHARED_STATE } from "./sharedState.model";
 import { Observable } from "rxjs";
 import { filter,map,skipWhile,distinctUntilChanged } from "rxjs";
 
+
 @Component({
     selector: "paForm",
     templateUrl: "form.component.html",
@@ -13,16 +14,22 @@ import { filter,map,skipWhile,distinctUntilChanged } from "rxjs";
 })
 export class FormComponent {
     product: Product = new Product(0);
-    lastId: number;
+    // lastId: number;
 
     constructor(private model: Model,
-            private state: SharedState) {}
+           @Inject(SHARED_STATE) public stateEvents: Observable<SharedState>) {
+               stateEvents.subscribe((update) => {
+                   this.product = new Product(0);
+                   if (update.id !=undefined){
+                       Object.assign(this.product, this.model.getProduct(update.id));
+                   }
+                   this.editing = update.mode == MODES.EDIT;
+               });
+           }
 
-    get editing(): boolean {
-        return this.state.mode == MODES.EDIT;
-    }
+    editing: boolean = false;
 
-    submitForm(form: NgForm) {
+     submitForm(form: NgForm) {
         if (form.valid) {
             this.model.saveProduct(this.product);
             this.product = new Product(0);
@@ -34,13 +41,13 @@ export class FormComponent {
         this.product = new Product(0);
     }
 
-    ngDoCheck(){
-        if (this.lastId != this.state.id){
-            this.product = new Product();
-            if (this.state.mode == MODES.EDIT){
-                Object.assign(this.product, this.model.getProduct(this.state.id));
-            }
-            this.lastId = this.state.id;
-        }
-    }
+    // ngDoCheck(){
+    //     if (this.lastId != this.state.id){
+    //         this.product = new Product();
+    //         if (this.state.mode == MODES.EDIT){
+    //             Object.assign(this.product, this.model.getProduct(this.state.id));
+    //         }
+    //         this.lastId = this.state.id;
+    //     }
+    // }
 }
