@@ -1,8 +1,10 @@
-import { Component } from "@angular/core";
+import { Component,Inject } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Product } from "../model/product.model";
 import { Model } from "../model/repository.model"
-import { MODES, SharedState } from "./sharedState.model";
+import { MODES, SharedState, SHARED_STATE } from "./sharedState.model";
+import { Observable } from "rxjs";
+import { filter,map,skipWhile,distinctUntilChanged } from "rxjs";
 
 @Component({
     selector: "paForm",
@@ -11,6 +13,7 @@ import { MODES, SharedState } from "./sharedState.model";
 })
 export class FormComponent {
     product: Product = new Product(0);
+    lastId: number;
 
     constructor(private model: Model,
             private state: SharedState) {}
@@ -29,5 +32,15 @@ export class FormComponent {
 
     resetForm() {
         this.product = new Product(0);
+    }
+
+    ngDoCheck(){
+        if (this.lastId != this.state.id){
+            this.product = new Product();
+            if (this.state.mode == MODES.EDIT){
+                Object.assign(this.product, this.model.getProduct(this.state.id));
+            }
+            this.lastId = this.state.id;
+        }
     }
 }
