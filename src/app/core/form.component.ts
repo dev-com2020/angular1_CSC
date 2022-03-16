@@ -10,7 +10,7 @@ import { MODES, SharedState } from "./sharedState.model";
     styleUrls: ["form.component.css"]
 })
 export class FormComponent {
-    product: Product = new Product();
+    product: Product = new Product(0);
 
     constructor(private model: Model,
             private state: SharedState) {}
@@ -22,12 +22,12 @@ export class FormComponent {
     submitForm(form: NgForm) {
         if (form.valid) {
             this.model.saveProduct(this.product);
-            this.product = new Product();
+            this.product = new Product(0);
             form.reset();
         }
     }
 
     resetForm() {
-        this.product = new Product();
+        this.product = new Product(0);
     }
 }

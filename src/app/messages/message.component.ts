@@ -7,7 +7,7 @@ import { Message } from "./message.model";
     templateUrl: "message.component.html",
 })
 export class MessageComponent {
-    lastMessage: Message;
+    lastMessage: Message | undefined;
 
     constructor(messageService: MessageService) {
         messageService.registerMessageHandler(m => this.lastMessage = m);

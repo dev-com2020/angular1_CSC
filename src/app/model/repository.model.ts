@@ -17,7 +17,7 @@ export class Model{
     }
 
     getProduct(id: number): Product {
-        return this.products.filter(p => this.locator(p, id))[0];
+        return this.products.filter(p => this.locator(p,id))[0];
 
     }
 

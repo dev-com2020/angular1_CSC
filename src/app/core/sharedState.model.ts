@@ -4,5 +4,5 @@ export enum MODES{
 
 export class SharedState {
     mode: MODES = MODES.EDIT;
-    id: number;
+    id: number | undefined;
 }
