@@ -12,6 +12,7 @@ export class RestDataSource{
         @Inject(REST_URL) private url: string){}
 
     getData(): Observable<Product[]> {
+        // return this.http.jsonp<Product[]>(this.url,"callback");
         return this.sendRequest<Product[]>("GET",this.url);
     }
 
@@ -30,9 +31,17 @@ export class RestDataSource{
 
 private sendRequest<T>(verb: string, url: string, body?: Product)
     : Observable<T> {
+        let myHeaders = new HttpHeaders();
+        myHeaders = myHeaders.set("Access-Key","<sekret>");
+        myHeaders = myHeaders.set("Application-Name", ["exampleApp", "AngularPro"]);
+
+
         return this.http.request<T>(verb,url,{
-            body:body
-        });
+            body:body,
+            headers: myHeaders
+            
+        }).pipe(catchError((error: Response) =>
+            throwError(`Błąd sieci: ${error.statusText} (${error.status})`)));
     }
 
 }
