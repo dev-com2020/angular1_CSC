@@ -10,6 +10,6 @@ export class MessageComponent {
     lastMessage: Message | undefined;
 
     constructor(messageService: MessageService) {
-        messageService.registerMessageHandler(m => this.lastMessage = m);
+        messageService.message.subscribe(m => this.lastMessage = m);
     }
 }
