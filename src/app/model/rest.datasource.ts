@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Inject, Injectable, InjectionToken } from "@angular/core";
 import { Observable, throwError } from "rxjs";
 import { Product } from "./product.model";
-import { catchError } from "rxjs/operators";
+import { catchError, delay } from "rxjs/operators";
 
 export const REST_URL = new InjectionToken("rest_url");
 
@@ -39,8 +39,10 @@ private sendRequest<T>(verb: string, url: string, body?: Product)
         return this.http.request<T>(verb,url,{
             body:body,
             headers: myHeaders
-            
-        }).pipe(catchError((error: Response) =>
+        
+        })
+        .pipe(delay(5000))
+        .pipe(catchError((error: Response) =>
             throwError(`Błąd sieci: ${error.statusText} (${error.status})`)));
     }
 
