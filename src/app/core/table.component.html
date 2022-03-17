@@ -11,7 +11,7 @@
             <button class="btn btn-danger btn-sm mr-1" (click)="deleteProduct(item.id)">
                 Usuń
             </button>
-            <button class="btn btn-warning btn-sm" (click)="editProduct(item.id)" routerLink="/form/edit">
+            <button class="btn btn-warning btn-sm" (click)="editProduct(item.id)" [routerLink]="['/form','edit',item.id]">
                 Edytuj
             </button>
         </td>

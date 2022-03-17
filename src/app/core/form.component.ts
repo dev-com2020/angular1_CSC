@@ -5,6 +5,7 @@ import { Model } from "../model/repository.model"
 import { MODES, SharedState, SHARED_STATE } from "./sharedState.model";
 import { Observable } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
+import { nullSafeIsEquivalent } from "@angular/compiler/src/output/output_ast";
 // import { filter, map, distinctUntilChanged, skipWhile } from "rxjs/operators"
 
 
@@ -19,7 +20,11 @@ export class FormComponent {
     // lastId: number;
 
     constructor(private model: Model, activeRoute: ActivatedRoute){
-        this.editing = activeRoute.snapshot.url[1].path == "edit";
+        this.editing = activeRoute.snapshot.params["mode"] == "edit";
+        let id = activeRoute.snapshot.params["id"];
+        if (id != undefined){
+            Object.assign(this.product, model.getProduct(id) || new Product(0));
+        }
     }
 
 
