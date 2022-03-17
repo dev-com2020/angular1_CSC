@@ -8,9 +8,11 @@ import { ModelResolver } from "./model/model.resolver";
 import { TermsGuard } from "./terms.guards";
 
 
+
 const childRoutes: Routes = [
     {
         path: "",
+        canActivateChild: [TermsGuard],
         children: [    
     { path: "products", component: ProductCountComponent},
     { path: "categories", component: CategoryCountComponent},
