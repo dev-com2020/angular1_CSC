@@ -7,7 +7,7 @@ import { RestDataSource } from "./rest.datasource";
 @Injectable()
 export class Model{
     private products: Product[] = new Array<Product>();
-    private locator = (p: Product, id: number) => p.id === id;
+    private locator = (p: Product, id: number) => p.id == id;
 
     constructor(private dataSource: RestDataSource){
         // this.products = new Array<Product>();
@@ -20,12 +20,12 @@ export class Model{
     }
 
     getProduct(id: number): Product {
-        return this.products.filter(p => this.locator(p,id))[0];
+        return this.products.find(p => this.locator(p,id))!;
 
     }
 
     saveProduct(product: Product){
-        if (product.id === 0 || product.id === undefined){
+        if (product.id == 0 || product.id == null){
             this.dataSource.saveProduct(product)
             .subscribe(p => this.products.push(p));
         }else{
