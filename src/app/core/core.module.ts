@@ -13,11 +13,15 @@ import { MODES } from "./sharedState.model";
 import { Subject } from "rxjs";
 import { StatePipe } from "./state.pipe";
 import { RouterModule } from "@angular/router";
+import { ProductCountComponent } from "./productCount.component";
+import { NotFoundComponent } from "./notFound.component";
+import { CategoryCountComponent } from "./categoryCount.component";
+
 
 
 @NgModule({
     imports: [BrowserModule, FormsModule, ModelModule, MessageModule, RouterModule],
-    declarations: [TableComponent, FormComponent, StatePipe],
+    declarations: [TableComponent, FormComponent, StatePipe, ProductCountComponent, CategoryCountComponent, NotFoundComponent],
     exports: [ModelModule, TableComponent, FormComponent],
     // providers: [{
     //     provide: SHARED_STATE,

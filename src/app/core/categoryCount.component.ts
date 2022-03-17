@@ -9,7 +9,7 @@ import { Model } from "../model/repository.model";
     template: `<div class="bg-info text-white p-2">Liczba produktów: {{count}}.</div>`
 })
 
-export class ProductCountComponent {
+export class CategoryCountComponent {
     private differ!: KeyValueDiffer<any, any>;
 
     count: number = 0;
@@ -26,12 +26,12 @@ export class ProductCountComponent {
 
     ngDoCheck() {
         if (this.differ.diff(this.model.getProducts()) != null) {
-        this.updateCount();
+        this.count = this.model.getProducts()
+        .map(p => p.category)
+        .filter((category, index, array) => array.indexOf(category) == index)
+        .length;
         }
-        }
-
-
-    private updateCount() {
-        this.count = this.model.getProducts().length;
     }
 }
+
+

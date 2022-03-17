@@ -20,9 +20,14 @@ export class FormComponent {
     // lastId: number;
 
     constructor(public model: Model, activeRoute: ActivatedRoute, private router: Router){
-        this.editing = activeRoute.snapshot.params["mode"] == "edit";
+        activeRoute.params.subscribe(params => {
+            this.editing = params["mode"] == "edit";
+            let id = params["id"];
 
-        let id = activeRoute.snapshot.params["id"];
+           
+        // this.editing = activeRoute.snapshot.params["mode"] == "edit";
+
+        // let id = activeRoute.snapshot.params["id"];
         
         if (id != undefined){
         //     let name = activeRoute.snapshot.params["name"];
@@ -37,7 +42,8 @@ export class FormComponent {
         // }
             Object.assign(this.product, model.getProduct(id) || new Product(0));
         }
-    }
+    })
+}
 
 
     editing: boolean = false;
