@@ -10,11 +10,13 @@ import { MessageComponent } from "./messages/message.component";
 import { registerLocaleData } from '@angular/common';
 import localePL from '@angular/common/locales/pl';
 import { routing } from "./app.routing";
+import { TermsGuard } from "./terms.guards";
 registerLocaleData(localePL);
 
 @NgModule({
     imports: [BrowserModule, ModelModule, CoreModule, MessageModule, routing],
     declarations: [AppComponent],
+    providers:[TermsGuard],
     bootstrap: [AppComponent]
 })
 export class AppModule {}
