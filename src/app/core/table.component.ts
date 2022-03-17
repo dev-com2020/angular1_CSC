@@ -10,7 +10,7 @@ import { Observer } from "rxjs";
 })
 export class TableComponent {
     constructor(private model: Model, 
-        @Inject(SHARED_STATE) public observer: Observer<SharedState>) {}
+        /* @Inject(SHARED_STATE) public observer: Observer<SharedState>*/) {}
 
     getProduct(key: number): Product {
         return this.model.getProduct(key);
@@ -24,12 +24,12 @@ export class TableComponent {
         this.model.deleteProduct(key);
     }
 
-    editProduct(key: number) {
-       this.observer.next(new SharedState(MODES.EDIT, key));
-    }
+    // editProduct(key: number) {
+    //    this.observer.next(new SharedState(MODES.EDIT, key));
+    // }
 
-    createProduct() {
-        this.observer.next(new SharedState(MODES.CREATE));
+    // createProduct() {
+    //     this.observer.next(new SharedState(MODES.CREATE));
      
-    }
+    // }
 }

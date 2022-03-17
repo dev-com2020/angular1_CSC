@@ -4,7 +4,7 @@ import { Product } from "../model/product.model";
 import { Model } from "../model/repository.model"
 import { MODES, SharedState, SHARED_STATE } from "./sharedState.model";
 import { Observable } from "rxjs";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { nullSafeIsEquivalent } from "@angular/compiler/src/output/output_ast";
 // import { filter, map, distinctUntilChanged, skipWhile } from "rxjs/operators"
 
@@ -19,10 +19,20 @@ export class FormComponent {
     product: Product = new Product(0);
     // lastId: number;
 
-    constructor(private model: Model, activeRoute: ActivatedRoute){
+    constructor(private model: Model, activeRoute: ActivatedRoute, private router: Router){
         this.editing = activeRoute.snapshot.params["mode"] == "edit";
         let id = activeRoute.snapshot.params["id"];
         if (id != undefined){
+            let name = activeRoute.snapshot.params["name"];
+            let category = activeRoute.snapshot.params["category"];
+            let price = activeRoute.snapshot.params["price"];
+
+        if (name != undefined && category !=undefined && price !=undefined){
+            this.product.id = id;
+            this.product.name = name;
+            this.product.category = category;
+            this.product.price = Number.parseFloat(price);
+        }
             Object.assign(this.product, model.getProduct(id) || new Product(0));
         }
     }
@@ -33,8 +43,9 @@ export class FormComponent {
      submitForm(form: NgForm) {
         if (form.valid) {
             this.model.saveProduct(this.product);
-            this.product = new Product(0);
-            form.reset();
+            // this.product = new Product(0);
+            // form.reset();
+            this.router.navigateByUrl("/");
         }
     }
 
