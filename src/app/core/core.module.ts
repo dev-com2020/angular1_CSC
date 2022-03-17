@@ -12,10 +12,11 @@ import { Model } from "../model/repository.model";
 import { MODES } from "./sharedState.model";
 import { Subject } from "rxjs";
 import { StatePipe } from "./state.pipe";
+import { RouterModule } from "@angular/router";
 
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, ModelModule, MessageModule],
+    imports: [BrowserModule, FormsModule, ModelModule, MessageModule, RouterModule],
     declarations: [TableComponent, FormComponent, StatePipe],
     exports: [ModelModule, TableComponent, FormComponent],
     providers: [{

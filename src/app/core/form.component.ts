@@ -4,7 +4,9 @@ import { Product } from "../model/product.model";
 import { Model } from "../model/repository.model"
 import { MODES, SharedState, SHARED_STATE } from "./sharedState.model";
 import { Observable } from "rxjs";
-import { filter, map, distinctUntilChanged, skipWhile } from "rxjs/operators"
+import { ActivatedRoute } from "@angular/router";
+// import { filter, map, distinctUntilChanged, skipWhile } from "rxjs/operators"
+
 
 
 @Component({
@@ -16,22 +18,10 @@ export class FormComponent {
     product: Product = new Product(0);
     // lastId: number;
 
-    constructor(private model: Model,
-           @Inject(SHARED_STATE) public stateEvents: Observable<SharedState>) {
+    constructor(private model: Model, activeRoute: ActivatedRoute){
+        this.editing = activeRoute.snapshot.url[1].path == "edit";
+    }
 
-               stateEvents
-            //    .pipe(skipWhile(state => state.mode == MODES.EDIT))
-            //    .pipe(distinctUntilChanged((firstState, secondState) =>
-            //    firstState.mode == secondState.mode && firstState.id == secondState.id))
-               .subscribe(update => {
-                   this.product = new Product(0);
-                   if (update.id != undefined){
-                       Object.assign(this.product, this.model.getProduct(update.id));
-                   }
-                   this.editing = update.mode == MODES.EDIT;
-               });
-
-           }
 
     editing: boolean = false;
 
