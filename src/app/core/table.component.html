@@ -1,3 +1,23 @@
+
+
+<div class="container-fluid">
+<div class="row">
+    <div class="col-3">
+       
+        <button class="btn btn-secondary btn-block" 
+        routerLink="/" 
+        routerLinkActive="bg-primary"
+        [routerLinkActiveOptions]="{exact: true}">
+            Wszystkie
+        </button>
+        <ul class="list-group">
+        <li *ngFor="let category of categories" class="list-group-item" [routerLink]="['/table',category]" 
+        routerLinkActive="bg-primary">
+            {{category}}
+        </li>
+    
+    <div class="col">
+        <div class="row">
 <table class="table table-sm table-bordered table-striped">
     <tr>
         <th>ID</th><th>Produkt</th><th>Kategoria</th><th>Cena</th><th></th>
@@ -17,6 +37,10 @@
         </td>
     </tr>
 </table>
+</div>
+</div>
+
+<div class="p-2 text-center">
 <button class="btn btn-primary m-1" routerLink="/form/create">
     Dodaj nowy produkt
 </button>
@@ -27,3 +51,4 @@
 <button class="btn btn-primary m-1" routerLink="/nie/istnieje">
     Wygeneruj bład routingu
 </button>
+</div>

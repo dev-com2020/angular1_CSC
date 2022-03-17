@@ -11,7 +11,7 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class TableComponent {
 
-    category: string = null;
+    category: string = '';
 
     constructor(public model: Model, activeRoute: ActivatedRoute 
         /* @Inject(SHARED_STATE) public observer: Observer<SharedState>*/) {
@@ -24,14 +24,14 @@ export class TableComponent {
         return this.model.getProduct(key);
     }
     
-    getProducts(): Product[]{
+    getProducts(): Product[] {
     return this.model.getProducts()
-    .filter(p=> this. category == null || p.category == this.category);
+    .filter(p=> this.category == null || p.category == this.category);
     }
 
     get categories(): string[] {
         return this.model.getProducts()
-        .map(p => p.category)
+        .map(p => p.category!)
         .filter((category, index, array) => array.indexOf(category) == index);
     }
 
