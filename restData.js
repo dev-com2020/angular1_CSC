@@ -8,7 +8,7 @@ module.exports = function () {
             { id: 5, name: "Stadion", category: "Piłka nożna", price: 79500 },
             { id: 6, name: "Czapka", category: "Szachy", price: 16 },
             { id: 7, name: "Niestabilne krzesło", category: "Szachy", price: 29.95 },
-            { id: 8, name: "Ludzka szachownica", category: "Szachy", price: 75 },
+            { id: 8, name: "BMW X1", category: "Wyścigi", price: 705000 },
             { id: 9, name: "Błyszczący król", category: "Szachy", price: 1200 }
         ]
     }
